@@ -27,7 +27,7 @@ namespace ApiRestNet5.Controllers
                 SobreNome = "Amaro Pereira",
                 Endereco = "Rua Pedro Carlos de souza 278 Jardim Europa Rancharia Sp",
                 Genero = "Masculino",
-                Id = 1
+                Id = 1,
             };
             var retorno = JsonSerializer.Serialize(pessoa);
             return Ok(retorno);
