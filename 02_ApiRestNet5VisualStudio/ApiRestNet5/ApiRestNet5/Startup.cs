@@ -1,15 +1,14 @@
+using ApiRestNet5.Model.Context;
+using ApiRestNet5.Negocio;
+using ApiRestNet5.Negocio.Implementations;
+using ApiRestNet5.Repositorio;
+using ApiRestNet5.Repositorio.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ApiRestNet5
 {
@@ -27,6 +26,17 @@ namespace ApiRestNet5
         {
 
             services.AddControllers();
+
+            var con = Configuration["MySqlConnection:MySqlConnectionString"];
+
+            services.AddDbContext<MySqlContext>(options => options.UseMySql(con));
+
+            services.AddApiVersioning();
+
+            services.AddScoped<IPessoaNegocio, PessoaNegocio>();
+            services.AddScoped<IPessoaRepositorio, PessoaRepositorio>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
